@@ -1,0 +1,57 @@
+extends ../layouts/common
+
+block content
+    a.btn.btn-secondary(href=`/khoahoc/${idKhoahoc}`) Quay lại
+    h3 Thêm học viên khóa học 
+        span= tenKh
+    .row
+        .board.col-12
+            form.form-inline.my-2.my-lg-0(action=`/khoahoc/themhv/${idKhoahoc}`, method='GET')
+                input.form-control.mr-sm-2.search(type='search', name='q', placeholder='Search', aria-label='Search', value=q ? value=q : '')
+                button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+            if users.length > 0
+                table.table.table-bordered
+                    thead
+                        tr
+                            th(scope='col') #
+                            th(scope='col') Tên
+                            th(scope='col') email
+                            th(scope='col') Số điện thoại
+                            th(scope='col') Action
+                    tbody
+                        each user, index in users
+                            tr
+                                th(scope='row')= index
+                                td= user.name
+                                td(class='')= user.email
+                                td(class='td-number')= user.phone
+                                td(class="action-td")
+                                    a(href=`/khoahoc/addhv/${idKhoahoc}/${user.id}`, class='')
+                                        span.badge.badge-success Thêm
+                nav(aria-label='Page navigation example')
+                    ul.pagination
+                        if  currentPage === 1
+                            li.page-item.disabled
+                                a.page-link(href=previous aria-label='Next')
+                                    span(aria-hidden='true') &laquo;
+                        else
+                            li.page-item
+                                a.page-link(href=previous aria-label='Next')
+                                    span(aria-hidden='true') &laquo;
+                        each page, index in pages
+                            if index+1 === currentPage
+                                li.page-item.active
+                                    a.page-link(href=page)= index + 1
+                            else
+                                li.page-item
+                                    a.page-link(href=page)= index + 1
+                        if currentPage === totalPage
+                            li.page-item.disabled
+                                a.page-link(href=nextPage aria-label='Next')
+                                    span(aria-hidden='true') &raquo;
+                        else
+                            li.page-item
+                                a.page-link(href=nextPage aria-label='Next')
+                                    span(aria-hidden='true') &raquo;
+            else
+                h2.blue Không có học viên nào

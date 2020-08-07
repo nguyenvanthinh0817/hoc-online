@@ -1,0 +1,17 @@
+extends ../layouts/common
+
+block content
+	h1 Update
+
+ 
+	form(action='/users/update/'+ user.id, method='POST', enctype="multipart/form-data")
+		.form-group
+			label(for="name") Name
+			input(type='text', name='name',id="name", class="form-control mb-3", value=user.name)
+		.form-group
+			label(for="phone") Phone
+			input(type='text', name='phone',id="phone", class="form-control mb-3", value=user.phone)
+		.form-group
+			label(for="avatar") Avatar
+			input(type='file', name='avatar',id="avatar", class="mb-3 form-control-file")
+		button.btn.btn-success Save

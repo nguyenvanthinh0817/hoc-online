@@ -1,0 +1,34 @@
+.top-menu{
+    margin-bottom: 8px;
+}
+.table {
+    margin-top:8px;
+    overflow: hide;
+}
+
+.action{
+    margin-right:8px;
+    margin-top: 8px;
+}
+.action-td{
+    text-align: center;
+}
+
+.td-number{
+    text-align: right;
+}
+.btn-taomoi{
+    margin-bottom:8px;
+}
+th{
+    text-align: center; 
+}
+
+
+.text-line-through{
+    text-decoration-line: line-through;
+}
+
+.text-lienhe{
+    text-align: center;
+}

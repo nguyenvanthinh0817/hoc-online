@@ -1,0 +1,74 @@
+extends ../layouts/common
+
+block content
+    h3= title
+    .row
+        .board.col-12
+            a.btn.btn-success.btn-taomoi(href='/khoahoc/create') Tạo mới
+            form.form-inline.my-2.my-lg-0(action=`/khoahoc`, method='GET')
+                input.form-control.mr-sm-2.search(type='search', name='q', placeholder='Search', aria-label='Search', value=q ? value=q : '')
+                button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+            if khoahocs.length > 0
+                table.table.table-bordered
+                    thead
+                        tr
+                            th(scope='col') #
+                            th(scope='col') Hình ảnh
+                            th(scope='col') Tên
+                            th(scope='col') Giá
+                            th(scope='col') Giá giảm
+                            th(scope='col') Số học viên
+                            th(scope='col') Trạng thái
+                            th(scope='col') Action
+                    tbody
+                        each khoahoc, index in khoahocs
+                            tr
+                                th(scope='row')= index
+                                td
+                                    img(src=`${process.env.MYHOST}${khoahoc.avatar}`, alt="" , width="32")
+                                td= khoahoc.name
+                                td(class='td-number')= khoahoc.gia
+                                td(class='td-number')= khoahoc.giagiam
+                                td(class='td-number')= khoahoc.sohocvien
+                                if khoahoc.trangthai
+                                    td(class="action-td")
+                                        span.badge.badge-danger Khóa
+                                else
+                                    td(class="action-td")
+                                        span.badge.badge-success Hoạt động
+                                td(class="action-td")
+                                    a(href=`/baihoc/${khoahoc.id}`, class='action')
+                                        span.badge.badge-primary Bài học
+                                    a(href=`/khoahoc/${khoahoc.id}`, class='action')
+                                        span.badge.badge-success Chi tiết
+                                    a(href=`/khoahoc/update/${khoahoc.id}`, class='action')
+                                        span.badge.badge-Dark Sửa
+                                    a(href=`/khoahoc/delete/${khoahoc.id}`, class='')
+                                        span.badge.badge-danger Xóa
+                nav(aria-label='Page navigation example')
+                    ul.pagination
+                        if  currentPage === 1
+                            li.page-item.disabled
+                                a.page-link(href=previous aria-label='Next')
+                                    span(aria-hidden='true') &laquo;
+                        else
+                            li.page-item
+                                a.page-link(href=previous aria-label='Next')
+                                    span(aria-hidden='true') &laquo;
+                        each page, index in pages
+                            if index+1 === currentPage
+                                li.page-item.active
+                                    a.page-link(href=page)= index + 1
+                            else
+                                li.page-item
+                                    a.page-link(href=page)= index + 1
+                        if currentPage === totalPage
+                            li.page-item.disabled
+                                a.page-link(href=nextPage aria-label='Next')
+                                    span(aria-hidden='true') &raquo;
+                        else
+                            li.page-item
+                                a.page-link(href=nextPage aria-label='Next')
+                                    span(aria-hidden='true') &raquo;
+            else
+                h2.blue Không có khóa học nào

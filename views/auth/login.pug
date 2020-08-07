@@ -1,0 +1,21 @@
+extends ../layouts/common
+
+block content
+    .d-flex.justify-content-center.mb-4
+        .card.col-md-6.p-0
+            .card-header.d-flex.justify-content-center
+                h3 Đăng nhập
+            .card-body
+                if errors
+                    each error in errors
+                        .alert.alert-danger= error
+                form(action='/auth/login', method='POST')
+                    .form-group
+                        label(for='validationDefault01') Email
+                        input.form-control(type='text' name='email', value=values ? value = values.email : '' required='')
+                        label(for='validationDefault01') Mật khẩu
+                        input.form-control(type='password' name='password' required='')
+                        .d-flex.justify-content-center
+                            button.btn.btn-success.mt-2(type='submit') Đăng nhập
+                p Chưa có tài khoản? 
+                    a(href='/auth/dangky') Đăng kí

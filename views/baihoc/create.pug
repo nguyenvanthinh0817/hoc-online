@@ -1,0 +1,35 @@
+extends ../layouts/common
+
+block content
+    h3 Thêm bài học khóa 
+        a(href=`/khoahoc/${khoahoc.id}`)
+            span= khoahoc.name
+    .row
+        if errors
+            each error in errors
+                .alert.alert-danger= error
+        .create.col-12
+            form(action=`/baihoc/create/${khoahoc.id}`, method='POST', enctype="multipart/form-data")
+                .form-row
+                    .col-md-6.mb-3
+                        label(for='validationDefault01') Tên bài học
+                        input.form-control(type='text', name='name', required='')
+                    .col-md-6.mb-3
+                        label(for='validationDefault02') Số thứ tự
+                        input.form-control(type='number', name='stt', required='')
+                    .col-md-6.mb-3
+                        <label for="exampleFormControlFile1">Chọn file video</label>
+                        <input type="file", name="video", class="form-control-file",required='', id="exampleFormControlFile1">
+                    .col-md-6.mb-3
+                        label(for='validationDefault02') Thời gian (Phút)
+                        input.form-control(type='number', name='thoigian', required='')
+                .form-group
+                    .form-check
+                            input#invalidCheck2.form-check-input(type='checkbox', name='trangthai', value='true')
+                            label.form-check-label(for='invalidCheck2')
+                            | Trạng thái đang khóa
+                    .form-check
+                            input#invalidCheck2.form-check-input(type='checkbox', name='hocthu', value='true')
+                            label.form-check-label(for='invalidCheck2')
+                            | Học thử
+                button.btn.btn-primary(type='submit') Lưu

@@ -1,0 +1,37 @@
+extends ../layouts/common
+
+block content
+    h3 create
+    .row
+        if errors
+            each error in errors
+                .alert.alert-danger= error
+        .create.col-12
+            form(action=`/khoahoc/create`, method='POST', enctype="multipart/form-data")
+                .form-row
+                    .col-md-6.mb-3
+                        label(for='validationDefault01') Tên khóa học
+                        input.form-control(type='text', name='name', required='')
+                    //- .col-md-6.mb-3
+                    //-     fieldset(disabled='')
+                    //-         <label for="disabledTextInput">Disabled input</label>
+                    //-         <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+                    .col-md-6.mb-3
+                        label(for='validationDefault02') Giá
+                        input.form-control(type='number', name='gia', required='')
+                .form-row
+                    .col-md-6.mb-3
+                        label(for='validationDefault03') Mô tả
+                        input.form-control(type='text', name='mota', required='')
+                    .col-md-6.mb-3
+                        label(for='validationDefault02') Giá giảm
+                        input.form-control(type='number', name='giagiam')
+                    .col-md-6.mb-3
+                        <label for="exampleFormControlFile1">Chọn file ảnh</label>
+                        <input type="file", name="avatar", class="form-control-file",required='', id="exampleFormControlFile1">
+                .form-group
+                    .form-check
+                            input#invalidCheck2.form-check-input(type='checkbox', name='trangthai', value='true')
+                            label.form-check-label(for='invalidCheck2')
+                            | Trạng thái đang khóa
+                button.btn.btn-primary(type='submit') Lưu

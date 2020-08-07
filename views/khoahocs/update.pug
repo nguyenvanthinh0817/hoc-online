@@ -1,0 +1,38 @@
+extends ../layouts/common
+
+block content
+    h3 Update
+    .row
+        if errors
+            each error in errors
+                .alert.alert-danger= error
+        .create.col-12
+            img(src=`${process.env.MYHOST}${khoahoc.avatar}`, alt="anh khoa hoc", width="256")
+            form(action=`/khoahoc/update/${khoahoc.id}`, method='POST', enctype="multipart/form-data")
+                .form-row
+                    .col-md-6.mb-3
+                        label(for='validationDefault01') Tên khóa học
+                        input.form-control(type='text', name='name', required='', value=khoahoc.name)
+                    //- .col-md-6.mb-3
+                    //-     fieldset(disabled='')
+                    //-         <label for="disabledTextInput">Disabled input</label>
+                    //-         <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+                    .col-md-6.mb-3
+                        label(for='validationDefault02') Giá
+                        input.form-control(type='number', name='gia', required='', value=khoahoc.gia)
+                .form-row
+                    .col-md-6.mb-3
+                        label(for='validationDefault03') Mô tả
+                        input.form-control(type='text', name='mota', required='', value=khoahoc.mota)
+                    .col-md-6.mb-3
+                        label(for='validationDefault02') Giá giảm
+                        input.form-control(type='number', name='giagiam', value=khoahoc.giagiam)
+                    .col-md-6.mb-3
+                        <label for="exampleFormControlFile1">Chọn file ảnh</label>
+                        <input type="file", name="avatar", class="form-control-file",required='', id="exampleFormControlFile1">
+                .form-group
+                    .form-check
+                            input#invalidCheck2.form-check-input(type='checkbox', name='trangthai', value='true', checked=khoahoc.trangthai)
+                            label.form-check-label(for='invalidCheck2')
+                            | Trạng thái đang khóa
+                button.btn.btn-primary(type='submit') Lưu

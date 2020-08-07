@@ -1,0 +1,51 @@
+extends ./layouts/common
+
+block content
+	.row.mb-4
+		.board.col-12.p-2
+			h1.p-0 Chào mừng bạn đến với Hello world
+			form.form-inline.my-2.my-lg-0(action=`/`, method='GET')
+				input.form-control.mr-sm-2.search(type='search' name='q' placeholder='Search' aria-label='Search', value=q ? value=q : '')
+				button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+		if khoahocs.length > 0
+			each khoahoc in khoahocs
+				.col-12.col-md-4.col-sm-12.col-md-12.col-lg-3.p-2
+					.card(style='width: 100%; height: 100%')
+						img.card-img-top(src=`${process.env.MYHOST}${khoahoc.avatar}`)
+						.card-body
+							h5.card-title= khoahoc.name
+							p.card-text= khoahoc.description
+							if khoahoc.giagiam > 0
+								p.card-text.text-line-through= khoahoc.giagiam
+									span  Đồng
+							else
+								p.card-text= khoahoc.gia
+									span  Đồng
+							p.card-text= khoahoc.sohocvien
+								span  Học viên
+							a.btn.btn-primary(href='/lienhe') Đăng ký khóa học
+	nav(aria-label='Page navigation example')
+		ul.pagination
+			if  currentPage === 1
+				li.page-item.disabled
+					a.page-link(href=previous aria-label='Next')
+						span(aria-hidden='true') &laquo;
+			else
+				li.page-item
+					a.page-link(href=previous aria-label='Next')
+						span(aria-hidden='true') &laquo;
+			each page, index in pages
+				if index+1 === currentPage
+					li.page-item.active
+						a.page-link(href=page)= index + 1
+				else
+					li.page-item
+						a.page-link(href=page)= index + 1
+			if currentPage === totalPage
+				li.page-item.disabled
+					a.page-link(href=nextPage aria-label='Next')
+						span(aria-hidden='true') &raquo;
+			else
+				li.page-item
+					a.page-link(href=nextPage aria-label='Next')
+						span(aria-hidden='true') &raquo;
